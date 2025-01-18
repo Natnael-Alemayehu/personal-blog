@@ -5,15 +5,16 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/a-h/templ"
 	"personal-blog/cmd/web"
+
+	"github.com/a-h/templ"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
 	mux := http.NewServeMux()
 
 	// Register routes
-	mux.HandleFunc("/", s.HelloWorldHandler)
+	mux.HandleFunc("/", s.HomePage)
 
 	mux.HandleFunc("/health", s.healthHandler)
 
@@ -45,8 +46,8 @@ func (s *Server) corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
-	resp := map[string]string{"message": "Hello World"}
+func (s *Server) HomePage(w http.ResponseWriter, r *http.Request) {
+	resp := map[string]string{"message": "This is the home page"}
 	jsonResp, err := json.Marshal(resp)
 	if err != nil {
 		http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
