@@ -2,137 +2,59 @@ package modules
 
 import "github.com/axzilla/templui/pkg/components"
 
+
 templ Navbar() {
-	<nav class="border-3 py-3">
-		<div class="container mx-auto justify-between px-4 flex items-center">
-			<div>
-				@ThemeSwitcher(ThemeSwitcherProps{})
-			</div>
-			<div>
-				@ButtonVariants()
-			</div>
-		</div>
-	</nav>
-    // @Nav()
-}
+    <header class="flex shadow-md py-3 px-4 sm:px-10 bg-background text-foreground font-[sans-serif] min-h-[70px] tracking-wide relative z-50">
+        <div class="flex flex-wrap items-center justify-between lg:gap-y-4 gap-y-6 gap-x-4 w-full">
+            <div class="flex items-center gap-12">
+                <a href="/" class="text-xl font-bold text-foreground">
+                    Logo
+                </a>
+                <div class="hidden lg:flex lg:items-center lg:gap-x-8">
+                    <a href="/" class="text-foreground text-[15px] hover:text-primary transition-colors">Home</a>
+                    <a href="/blog" class="text-foreground text-[15px] hover:text-primary transition-colors">Blog</a>
+                    <a href="/about" class="text-foreground text-[15px] hover:text-primary transition-colors">About</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="border-r border-border pr-6">
+                    @ThemeSwitcher(ThemeSwitcherProps{})
+                </div>
+                <div class="hidden lg:flex items-center gap-4">
+                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 rounded-md"})
+                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md"})
+                </div>
+                <button class="lg:hidden" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
 
-templ ButtonVariants() {
-	<div class="flex flex-wrap gap-2">
-		// @components.Button(components.ButtonProps{Text: "Default", Class: "text-white"})
-		// @components.Button(components.ButtonProps{Text: "Secondary", Variant: components.ButtonVariantSecondary})
-		// @components.Button(components.ButtonProps{Text: "Destructive", Variant: components.ButtonVariantDestructive, Class: "bg-destructive text-destructive-foreground hover:bg-destructive/90"})
-		// @components.Button(components.ButtonProps{Text: "Outline", Variant: components.ButtonVariantOutline})
-		// @components.Button(components.ButtonProps{Text: "Ghost", Variant: components.ButtonVariantGhost})
-		// @components.Button(components.ButtonProps{Text: "Link", Variant: components.ButtonVariantLink})
-		@components.Button(components.ButtonProps{Text: "Default"})
-	</div>
-}
-
-templ Nav() {
-	<header class="bg-white shadow-lg py-4 sticky top-0 z-50">
-		<div class="container mx-auto flex items-center justify-between px-4">
-			<!-- Logo -->
-			<a href="#" class="flex items-center text-primary hover:text-outline">
-				<svg class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707.707m12.728 0l.707.707M6.343 17.657l.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-					></path>
-				</svg>
-				<span class="text-2xl font-bold">MyBrand</span>
-			</a>
-			<!-- Mobile Menu Button (Hidden on larger screens) -->
-			<div class="md:hidden">
-				<button
-					id="menu-toggle"
-					class="text-gray-800 hover:text-primary focus:outline-none transition-colors duration-300"
-				>
-					<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-					</svg>
-				</button>
-			</div>
-			<!-- Desktop Navigation (Hidden on smaller screens) -->
-			<nav class="hidden md:block">
-				<ul class="flex space-x-8">
-					<li><a href="#" class="hover:text-primary transition-colors duration-300">Home</a></li>
-					<li><a href="#" class="hover:text-primary transition-colors duration-300">About</a></li>
-					<li class="group relative">
-						<a href="#" class="hover:text-primary transition-colors duration-300">Services</a>
-						<!-- Dropdown Menu -->
-						<ul
-							class="absolute left-0 hidden group-hover:block bg-white shadow-md py-2 mt-1 rounded-md w-48 transition-all duration-300"
-						>
-							<li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Service 1</a></li>
-							<li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Service 2</a></li>
-							<li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Service 3</a></li>
-						</ul>
-					</li>
-					<li><a href="#" class="hover:text-primary transition-colors duration-300">Contact</a></li>
-					<li>
-						// <a
-						// 	href="#"
-						// 	class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors duration-300"
-						// >
-						// 	Signup
-						// </a>
-                        @components.Button(components.ButtonProps{Text: "Sign up", Size:"ButtonSizeSm" })
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<!-- Mobile Menu (Hidden by default) -->
-		<nav
-			id="mobile-menu"
-			class="hidden md:hidden bg-gray-50 border-t border-gray-200 transition-height duration-300 ease-in-out"
-		>
-			<ul class="px-4 py-2">
-				<li><a href="#" class="block py-2 hover:text-primary">Home</a></li>
-				<li><a href="#" class="block py-2 hover:text-primary">About</a></li>
-				<li>
-					<a href="#" id="services-dropdown-toggle" class="block py-2 hover:text-primary">Services</a>
-					<!-- Mobile Dropdown -->
-					<ul id="services-dropdown" class="hidden pl-4">
-						<li><a href="#" class="block py-2 hover:text-primary">Service 1</a></li>
-						<li><a href="#" class="block py-2 hover:text-primary">Service 2</a></li>
-						<li><a href="#" class="block py-2 hover:text-primary">Service 3</a></li>
-					</ul>
-				</li>
-				<li><a href="#" class="block py-2 hover:text-primary">Contact</a></li>
-				<li>
-					// <a
-					// 	href="#"
-					// 	class="block py-2 bg-primary hover:bg-secondary text-white rounded-md text-center transition-colors duration-300"
-					// >
-					// 	Signup
-					// </a>
-                    @components.Button(components.ButtonProps{Text: "Sign up", Size:"ButtonSizeSm" })
-				</li>
-			</ul>
-		</nav>
-	</header>
-	<script>
-  // Toggle mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        if (!mobileMenu.classList.contains('hidden')) {
-            mobileMenu.style.height = mobileMenu.scrollHeight + "px"; // Set height for transition
-        } else {
-            mobileMenu.style.height = "0";
+        <!-- Mobile menu -->
+        <div
+            id="navbar-menu"
+            class="hidden fixed inset-x-0 top-[70px] bg-background border-t border-border p-4 lg:hidden h-[calc(100vh-70px)] overflow-auto z-50"
+        >
+            <nav class="flex flex-col space-y-4">
+                <a href="/" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">Home</a>
+                <a href="/blog" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">Blog</a>
+                <a href="/about" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">About</a>
+                <div class="flex justify-between gap-4 pt-4 border-t border-border">
+                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground w-full h-10 px-4 py-2 rounded-md"})
+                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 w-full h-10 px-4 py-2 rounded-md"})
+                </div>
+            </nav>
+        </div>
+    </header>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navbar-menu');
+            menu.classList.toggle('hidden');
         }
-    });
-
-    // Toggle mobile services dropdown
-    const servicesDropdownToggle = document.getElementById('services-dropdown-toggle');
-    const servicesDropdown = document.getElementById('services-dropdown');
-
-    servicesDropdownToggle.addEventListener('click', () => {
-        servicesDropdown.classList.toggle('hidden');
-    });
-</script>
+    </script>
 }
