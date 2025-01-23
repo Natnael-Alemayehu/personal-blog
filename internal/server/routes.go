@@ -6,25 +6,27 @@ import (
 	"net/http"
 
 	"personal-blog/cmd/web"
+	"personal-blog/cmd/web/ui/pages"
 
 	"github.com/a-h/templ"
+	"github.com/julienschmidt/httprouter"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
-	mux := http.NewServeMux()
+	r := httprouter.New()
 
-	// Register routes
-	mux.HandleFunc("/", s.HomePage)
+	corsWrapper := s.corsMiddleware(r)
 
-	mux.HandleFunc("/health", s.healthHandler)
+	r.HandlerFunc(http.MethodGet, "/api/", s.HomePage)
+	r.HandlerFunc(http.MethodGet, "/health", s.healthHandler)
 
 	fileServer := http.FileServer(http.FS(web.Files))
-	mux.Handle("/assets/", fileServer)
-	mux.Handle("/web", templ.Handler(web.HelloForm()))
-	mux.HandleFunc("/hello", web.HelloWebHandler)
+	r.Handler(http.MethodGet, "/assets/*filepath", fileServer)
+
+	r.Handler(http.MethodGet, "/", templ.Handler(pages.Landing()))
 
 	// Wrap the mux with CORS middleware
-	return s.corsMiddleware(mux)
+	return corsWrapper
 }
 
 func (s *Server) corsMiddleware(next http.Handler) http.Handler {
@@ -47,7 +49,7 @@ func (s *Server) corsMiddleware(next http.Handler) http.Handler {
 }
 
 func (s *Server) HomePage(w http.ResponseWriter, r *http.Request) {
-	resp := map[string]string{"message": "This is the home page"}
+	resp := map[string]string{"message": "Home Page"}
 	jsonResp, err := json.Marshal(resp)
 	if err != nil {
 		http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
