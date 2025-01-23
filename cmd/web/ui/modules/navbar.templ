@@ -13,7 +13,6 @@ templ Navbar() {
                 <div class="hidden lg:flex lg:items-center lg:gap-x-8">
                     <a href="/" class="text-foreground text-[15px] hover:text-primary transition-colors">Home</a>
                     <a href="/blog" class="text-foreground text-[15px] hover:text-primary transition-colors">Blog</a>
-                    <a href="/about" class="text-foreground text-[15px] hover:text-primary transition-colors">About</a>
                 </div>
             </div>
             
@@ -22,8 +21,8 @@ templ Navbar() {
                     @ThemeSwitcher(ThemeSwitcherProps{})
                 </div>
                 <div class="hidden lg:flex items-center gap-4">
-                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 rounded-md"})
-                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md"})
+                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 rounded-md", Href: "/login"})
+                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md", Href: "/signup"})
                 </div>
                 <button class="lg:hidden" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -43,10 +42,9 @@ templ Navbar() {
             <nav class="flex flex-col space-y-4">
                 <a href="/" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">Home</a>
                 <a href="/blog" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">Blog</a>
-                <a href="/about" class="text-foreground text-[15px] hover:text-primary transition-colors py-2">About</a>
                 <div class="flex justify-between gap-4 pt-4 border-t border-border">
-                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground w-full h-10 px-4 py-2 rounded-md"})
-                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 w-full h-10 px-4 py-2 rounded-md"})
+                    @components.Button(components.ButtonProps{Text: "Login", Class: "text-accent-foreground border border-input bg-background hover:bg-accent hover:text-accent-foreground w-full h-10 px-4 py-2 rounded-md", Href: "/login"})
+                    @components.Button(components.ButtonProps{Text: "Sign up", Class: "bg-primary text-primary-foreground hover:bg-primary/90 w-full h-10 px-4 py-2 rounded-md", Href: "/signup"})
                 </div>
             </nav>
         </div>
